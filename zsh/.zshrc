@@ -133,4 +133,4 @@ source $ZSH/oh-my-zsh.sh
 
 neofetch
 export PATH=$PATH:/Users/tsc06/.spicetify
-source /home/taylor/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
