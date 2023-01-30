@@ -11,7 +11,6 @@
 (package! auctex)
 (package! pdf-tools)
 (package! latex-preview-pane)
-;;test
 
 
 ;; To install a package directly from a remote git repo, you must specify a
