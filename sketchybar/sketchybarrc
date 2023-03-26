@@ -1,0 +1,100 @@
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+FONT_FAMILY="JetBrainsMono Nerd Font"
+SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
+
+BAR_COLOR=0xff10141f
+BOX_COLOR=0xff282930
+ACCENT_COLOR=0xff84aafa
+LABEL_COLOR=0xfff8f8f2
+
+sketchybar --bar height=39 \
+                 blur_radius=0 \
+                 position=top \
+                 sticky=off \
+                 padding_left=8 \
+                 padding_right=8 \
+                 color=$BAR_COLOR \
+                 y_offset=-1 \
+                 font_smoothing=on
+
+sketchybar --default updates=when_shown \
+                     label.drawing=on \
+                     icon.drawing=on \
+                     background.color=$BOX_COLOR \
+                     background.border_color=$BAR_COLOR \
+                     background.border_width=2 \
+                     background.corner_radius=5 \
+                     background.padding_left=2 \
+                     background.padding_right=2 \
+                     background.height=24 \
+                     icon.font="sketchybar-app-font:Regular:12.0" \
+                     icon.color=$ACCENT_COLOR \
+                     label.font="$FONT_FAMILY:Regular:12.0" \
+                     label.color=$LABEL_COLOR \
+                     label.padding_left=12 \
+                     label.padding_right=12 \
+                     icon.padding_left=12 \
+                     icon.padding_right=-4 \
+                     icon.y_offset=-1
+
+SPACES=("plan" "mus" "main" "four" "five" "six" "seven" "eight")
+for i in "${!SPACES[@]}"
+do
+  sid=$(($i+1))
+  sketchybar --add space space.$sid left \
+  sketchybar --set space.$sid associated_space=$sid \
+                              icon.font="$FONT_FAMILY:Regular:12.0" \
+                              icon.color=$ACCENT_COLOR \
+                              label.font="sketchybar-app-font:Regular:12.0" \
+                              label.color=$LABEL_COLOR \
+                              icon="${SPACES[i]}" \
+                              icon.y_offset=0 \
+                              label.y_offset=-1 \
+                              script="$PLUGIN_DIR/workspaces.sh" \
+             --subscribe space.$sid front_app_switched
+done
+
+sketchybar --add event window_focus \
+           --add event title_change \
+           --add event spotify_change $SPOTIFY_EVENT
+
+sketchybar --add item time right \
+           --set time update_freq=10 \
+                      script="$PLUGIN_DIR/time.sh" \
+                      icon="" \
+                      icon.font="$FONT_FAMILY:Bold:13.0" \
+                      icon.y_offset=0 \
+                                    \
+           --add item date right \
+           --set date update_freq=10 \
+                      script="$PLUGIN_DIR/date.sh" \
+                      icon="" \
+                      icon.font="$FONT_FAMILY:Bold:13.0" \
+                      icon.y_offset=0 \
+                                    \
+           --add item focus left \
+           --set focus script="$PLUGIN_DIR/focus.sh" \
+                       icon.color=$ACCENT_COLOR \
+                       label.color=$ACCENT_COLOR \
+           --subscribe focus front_app_switched window_focus title_change \
+                                \
+           --add item wifi right\
+           --set wifi    script="$PLUGIN_DIR/wifi.sh"          \
+                         icon=直                               \
+           --subscribe wifi wifi_change                        \
+                                    \
+           --add item volume right                             \
+           --set volume  script="$PLUGIN_DIR/volume.sh"        \
+           --subscribe volume volume_change                    \
+                                                               \
+                                    \
+           --add item music right \
+           --set music label.drawing=off \
+		       icon.drawing=off \
+                       icon.font="sketchybar-app-font:Regular:11.0" \
+                       icon.y_offset=0 \
+                       icon=":statistics:" \
+                       script="$PLUGIN_DIR/music.sh" \
+	    --subscribe music spotify_change
+
+sketchybar --update
