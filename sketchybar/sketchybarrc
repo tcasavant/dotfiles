@@ -72,6 +72,9 @@ sketchybar --add item time right \
                       icon.font="$FONT_FAMILY:Bold:13.0" \
                       icon.y_offset=0 \
                                     \
+           --add item separator left \
+           --set separator script="$PLUGIN_DIR/separator.sh"\
+                                        \
            --add item focus left \
            --set focus script="$PLUGIN_DIR/focus.sh" \
                        icon.color=$ACCENT_COLOR \
