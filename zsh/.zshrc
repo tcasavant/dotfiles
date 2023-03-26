@@ -19,6 +19,8 @@ export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 export VISUAL=nvim
 export XDG_DATA_HOME="$HOME/.local/share/"
 export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="/Applications/CMake.app/Contents/bin":"$PATH"
+export PATH="/Users/tsc06/.spicetify":"$PATH"
 
 # Oh-my-zsh
 
@@ -130,7 +132,7 @@ source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-pfetch
-export PATH=$PATH:/Users/tsc06/.spicetify
 source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+pfetch
